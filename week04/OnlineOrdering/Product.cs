@@ -1,12 +1,26 @@
+// Product.cs
 public class Product
 {
-    public string Name { get; set; }
-    public string ProductID { get; set; }
-    public decimal Price { get; set; }
-    public int Quantity { get; set; }
+    private string _name;
+    private string _productId;
+    private double _price;
+    private int _quantity;
 
-    public decimal CalculateTotalCost()
+    public Product(string name, string productId, double price, int quantity)
     {
-        return Price * Quantity;
+        _name = name;
+        _productId = productId;
+        _price = price;
+        _quantity = quantity;
+    }
+
+    public double GetTotalCost()
+    {
+        return _price * _quantity;
+    }
+
+    public string GetLabel()
+    {
+        return $"{_name} (ID: {_productId})";
     }
 }

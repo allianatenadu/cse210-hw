@@ -5,39 +5,44 @@ using System.Collections.Generic;
 public class Video
 {
     public string Title { get; set; }
-    public decimal Price { get; set; }
-    public string Description { get; set; }
+    public string Author { get; set; }
+    public int LengthInSeconds { get; set; }
     public List<Comment> Comments { get; set; }
 
-    public Video(string title, decimal price, string description)
+    // Constructor to initialize a Video object
+    public Video(string title, string author, int lengthInSeconds)
     {
         Title = title;
-        Price = price;
-        Description = description;
+        Author = author;
+        LengthInSeconds = lengthInSeconds;
         Comments = new List<Comment>();
     }
 
+    // Method to add a comment
     public void AddComment(Comment comment)
     {
         Comments.Add(comment);
     }
 
+    // Method to get the number of comments
     public int GetNumberOfComments()
     {
         return Comments.Count;
     }
 
-    public void DisplayDetails()
+    // Method to display the video and comments
+    public void DisplayVideoDetails()
     {
-        Console.WriteLine($"Video Title: {Title}");
-        Console.WriteLine($"Price: ${Price}");
-        Console.WriteLine($"Description: {Description}");
+        Console.WriteLine($"Title: {Title}");
+        Console.WriteLine($"Author: {Author}");
+        Console.WriteLine($"Length: {LengthInSeconds} seconds");
         Console.WriteLine($"Number of Comments: {GetNumberOfComments()}\n");
-        Console.WriteLine("Comments:");
+
         foreach (var comment in Comments)
         {
-            Console.WriteLine($"- {comment.Name}: {comment.Text}");
+            Console.WriteLine($"Comment by {comment.Name}: {comment.Text}");
         }
-        Console.WriteLine();
+
+        Console.WriteLine(); // Add a blank line between videos
     }
 }

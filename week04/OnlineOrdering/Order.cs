@@ -1,32 +1,46 @@
+// Order.cs
+using System;
+using System.Collections.Generic;
+
 public class Order
 {
-    public List<Product> Products { get; set; }
-    public Customer OrderCustomer { get; set; }
+    private List<Product> _products;
+    private Customer _customer;
 
-    public decimal CalculateTotalPrice()
+    public Order(Customer customer)
     {
-        decimal totalCost = 0;
-        foreach (var product in Products)
-        {
-            totalCost += product.CalculateTotalCost();
-        }
-
-        decimal shippingCost = OrderCustomer.IsInUSA() ? 5m : 35m; // USA = $5, Else = $35
-        return totalCost + shippingCost;
+        _customer = customer;
+        _products = new List<Product>();
     }
 
-    public string GeneratePackingLabel()
+    public void AddProduct(Product product)
     {
-        var label = "";
-        foreach (var product in Products)
+        _products.Add(product);
+    }
+
+    public double GetTotalPrice()
+    {
+        double total = 0;
+        foreach (var product in _products)
         {
-            label += $"{product.Name} (ID: {product.ProductID})\n";
+            total += product.GetTotalCost();
+        }
+        total += _customer.LivesInUSA() ? 5 : 35;
+        return total;
+    }
+
+    public string GetPackingLabel()
+    {
+        string label = "Packing Label:\n";
+        foreach (var product in _products)
+        {
+            label += product.GetLabel() + "\n";
         }
         return label;
     }
 
-    public string GenerateShippingLabel()
+    public string GetShippingLabel()
     {
-        return OrderCustomer.CustomerAddress.GetFullAddress();
+        return $"Shipping Label:\n{_customer.GetName()}\n{_customer.GetAddress()}";
     }
 }

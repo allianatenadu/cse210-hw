@@ -1,10 +1,27 @@
+// Customer.cs
 public class Customer
 {
-    public string Name { get; set; }
-    public Address CustomerAddress { get; set; }
+    private string _name;
+    private Address _address;
 
-    public bool IsInUSA()
+    public Customer(string name, Address address)
     {
-        return CustomerAddress.IsInUSA();
+        _name = name;
+        _address = address;
+    }
+
+    public bool LivesInUSA()
+    {
+        return _address.IsInUSA();
+    }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public string GetAddress()
+    {
+        return _address.GetFullAddress();
     }
 }
