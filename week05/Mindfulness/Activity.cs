@@ -1,13 +1,17 @@
-abstract class Activity
+public abstract class Activity
 {
-    protected string Name;
-    protected string Description;
-    protected int Duration;
+    private string name;
+    private string description;
+    private int duration;
 
-    public Activity(string name, string description)
+    public string Name { get => name; }
+    public string Description { get => description; }
+    public int Duration { get => duration; set => duration = value; }
+
+    protected Activity(string name, string description)
     {
-        Name = name;
-        Description = description;
+        this.name = name;
+        this.description = description;
     }
 
     public void Start()
@@ -15,25 +19,26 @@ abstract class Activity
         Console.Clear();
         Console.WriteLine($"{Name}\n{Description}\n");
         Console.Write("Enter duration (seconds): ");
-        Duration = int.Parse(Console.ReadLine());
-        Console.Clear();
-        Console.WriteLine("Get ready...");
-        ShowSpinner(3);
-        PerformActivity();
-        Console.WriteLine("Well done! Returning to main menu...");
-        ShowSpinner(3);
+        while (!int.TryParse(Console.ReadLine(), out duration) || duration <= 0)
+        {
+            Console.Write("Invalid input. Enter a positive number: ");
+        }
+        Console.WriteLine("\nGet ready...");
+        ShowProgressBar(3);
+        Run();
+        Console.WriteLine("\nWell done! Returning to menu...");
+        ShowProgressBar(2);
     }
 
-    protected abstract void PerformActivity();
+    protected abstract void Run();
 
-    protected void ShowSpinner(int seconds)
+    protected void ShowProgressBar(int seconds)
     {
-        string[] spinner = {"|", "/", "-", "\\"};
-        for (int i = 0; i < seconds * 4; i++)
+        for (int i = 0; i < seconds; i++)
         {
-            Console.Write($"\r{spinner[i % 4]}");
-            Thread.Sleep(250);
+            Console.Write("[===]");
+            Thread.Sleep(1000);
         }
-        Console.Write("\r ");
+        Console.WriteLine();
     }
 }

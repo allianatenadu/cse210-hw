@@ -1,15 +1,15 @@
-class BreathingActivity : Activity
+public class BreathingActivity : Activity
 {
-    public BreathingActivity() : base("Breathing Exercise", "Focus on your breathing to relax.") { }
+    public BreathingActivity() : base("Breathing Exercise", "Focus on breathing in and out.") {}
 
-    protected override void PerformActivity()
+    protected override void Run()
     {
         for (int i = 0; i < Duration / 6; i++)
         {
-            Console.WriteLine("Breathe in...");
-            ShowSpinner(3);
-            Console.WriteLine("Breathe out...");
-            ShowSpinner(3);
+            Console.Write("Breathe in... ");
+            ShowProgressBar(3);
+            Console.Write("Breathe out... ");
+            ShowProgressBar(3);
         }
     }
 }

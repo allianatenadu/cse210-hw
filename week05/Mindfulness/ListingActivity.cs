@@ -1,25 +1,20 @@
-class ListingActivity : Activity
+public class ListingActivity : Activity
 {
-    private List<string> prompts = new List<string>
-    {
-        "List people who have inspired you.",
-        "List things you are grateful for.",
-        "List acts of kindness you have witnessed."
-    };
+    public ListingActivity() : base("Listing Exercise", "List as many responses as possible.") {}
 
-    public ListingActivity() : base("Listing Exercise", "List things that bring you joy and appreciation.") { }
-
-    protected override void PerformActivity()
+    protected override void Run()
     {
-        Random random = new Random();
-        Console.WriteLine(prompts[random.Next(prompts.Count)]);
-        Console.WriteLine("Start listing... (Press Enter after each item, type 'done' to finish)");
-        List<string> responses = new List<string>();
-        string input;
-        while ((input = Console.ReadLine().ToLower()) != "done")
+        Console.WriteLine("Think of as many items as possible...");
+        ShowProgressBar(3);
+        Console.WriteLine("Start listing:");
+        int count = 0;
+        DateTime endTime = DateTime.Now.AddSeconds(Duration);
+        while (DateTime.Now < endTime)
         {
-            responses.Add(input);
+            Console.Write("- ");
+            Console.ReadLine();
+            count++;
         }
-        Console.WriteLine($"You listed {responses.Count} items!");
+        Console.WriteLine($"You listed {count} items!");
     }
 }
