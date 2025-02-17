@@ -1,9 +1,19 @@
 using System;
 
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Hello World! This is the ExerciseTracking Project.");
+        List<Activity> activities = new List<Activity>
+        {
+            new Running { Date = DateTime.Now, Duration = 30, Distance = 3.0 },
+            new Cycling { Date = DateTime.Now, Duration = 45, Speed = 12.0 },
+            new Swimming { Date = DateTime.Now, Duration = 60, Laps = 30 }
+        };
+        
+        foreach (var activity in activities)
+        {
+            Console.WriteLine(activity.GetSummary());
+        }
     }
 }
